@@ -1,3 +1,4 @@
+const path = require('path');
 const Generator = require('yeoman-generator');
 
 class ProjectGenerator extends Generator {
@@ -14,24 +15,35 @@ class ProjectGenerator extends Generator {
         message: 'Project description',
       },
       {
-        type: 'input',
+        type: 'list',
         name: 'platform',
         message: 'Platform',
         choices: ['Browser', 'Node'],
         default: 'Browser',
       },
       {
-        type: 'input',
+        type: 'list',
         name: 'language',
-        message: 'language',
+        message: 'Language',
         choices: ['TypeScript', 'JavaScript'],
         default: 'TypeScript',
       },
     ]);
+
+    this.ts = this.answers.language === 'TypeScript';
+    this.platform = this.answers.platform.toLowerCase();
   }
 
   copyFiles() {
-    const files = ['package.json', ['template.gitignore', '.gitignore']];
+    const files = [
+      'README.md',
+      'package.json',
+      ['template.gitignore', '.gitignore'],
+    ];
+
+    if (this.ts) {
+      files.push('tsconfig.json');
+    }
 
     files.map(file => {
       let inFile, outFile;
@@ -56,12 +68,20 @@ class ProjectGenerator extends Generator {
     const deps = [];
     const devDeps = [];
 
-    if (this.answers.typescript) {
+    if (this.ts) {
       devDeps.push('typescript');
     }
 
     this.yarnInstall(deps);
     this.yarnInstall(devDeps, { dev: true });
+  }
+
+  updateFiles() {
+    if (this.ts && this.platform === 'browser') {
+      const tsconfig = require(path.resolve('tsconfig.json'));
+      tsconfig.compilerOptions.lib.push('dom');
+      this.fs.writeJSON('tsconfig.json', tsconfig);
+    }
   }
 }
 
