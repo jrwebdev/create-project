@@ -72,6 +72,10 @@ class ProjectGenerator extends Generator {
       devDeps.push('typescript');
     }
 
+    if (this.platform === 'node') {
+      devDeps.push('@types/node');
+    }
+
     this.yarnInstall(deps);
     this.yarnInstall(devDeps, { dev: true });
   }
