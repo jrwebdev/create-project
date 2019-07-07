@@ -1,0 +1,12 @@
+{
+  "name": "@jrweb/create-project",
+  "version": "0.0.0",
+  "description": "Project creator",
+  "repository": "git@github.com:jrwebdev/create-project.git",
+  "license": "MIT",
+  "bin": "./src/index.js",
+  "dependencies": {
+    "yeoman-environment": "^2.4.0",
+    "yeoman-generator": "^4.0.1"
+  }
+}
