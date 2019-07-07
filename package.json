@@ -5,6 +5,10 @@
   "repository": "git@github.com:jrwebdev/create-project.git",
   "license": "MIT",
   "bin": "./src/index.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "yeoman-environment": "^2.4.0",
     "yeoman-generator": "^4.0.1"
