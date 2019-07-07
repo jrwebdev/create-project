@@ -41,10 +41,6 @@ class ProjectGenerator extends Generator {
       ['template.gitignore', '.gitignore'],
     ];
 
-    if (this.ts) {
-      files.push('tsconfig.json');
-    }
-
     files.map(file => {
       let inFile, outFile;
 
@@ -64,6 +60,16 @@ class ProjectGenerator extends Generator {
     });
   }
 
+  createFiles() {
+    if (this.ts) {
+      const tsconfig = require(this.templatePath('tsconfig.json'));
+      if (this.platform === 'browser') {
+        tsconfig.compilerOptions.lib.push('dom');
+      }
+      this.fs.writeJSON('tsconfig.json', tsconfig);
+    }
+  }
+
   installDependencies() {
     const deps = [];
     const devDeps = [];
@@ -78,14 +84,6 @@ class ProjectGenerator extends Generator {
 
     this.yarnInstall(deps);
     this.yarnInstall(devDeps, { dev: true });
-  }
-
-  updateFiles() {
-    if (this.ts && this.platform === 'browser') {
-      const tsconfig = require(path.resolve('tsconfig.json'));
-      tsconfig.compilerOptions.lib.push('dom');
-      this.fs.writeJSON('tsconfig.json', tsconfig);
-    }
   }
 }
 
