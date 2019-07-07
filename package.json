@@ -1,6 +1,6 @@
 {
   "name": "@jrweb/create-project",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Project creator",
   "repository": "git@github.com:jrwebdev/create-project.git",
   "license": "MIT",
