@@ -12,5 +12,8 @@
   "dependencies": {
     "yeoman-environment": "^2.4.0",
     "yeoman-generator": "^4.0.1"
+  },
+  "devDependencies": {
+    "yeoman-test": "^2.0.0"
   }
 }

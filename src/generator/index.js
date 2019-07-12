@@ -1,4 +1,15 @@
-const path = require('path');
+/*
+  TODO:
+    - parcel/webpack
+    - React app
+    - Storybook
+    - babel
+    - styling
+    - testing
+    - linting
+    - CI/CD
+ */
+
 const Generator = require('yeoman-generator');
 
 class ProjectGenerator extends Generator {
@@ -66,13 +77,13 @@ class ProjectGenerator extends Generator {
       if (this.platform === 'browser') {
         tsconfig.compilerOptions.lib.push('dom');
       }
-      this.fs.writeJSON('tsconfig.json', tsconfig);
+      this.fs.writeJSON(this.destinationPath('tsconfig.json'), tsconfig);
     }
   }
 
   installDependencies() {
     const deps = [];
-    const devDeps = [];
+    const devDeps = ['prettier'];
 
     if (this.ts) {
       devDeps.push('typescript');
